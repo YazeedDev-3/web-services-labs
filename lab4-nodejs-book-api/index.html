@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body><br>
+    <div class="container">
+        <button type="button" onclick="insertbook()" class="btn btn-success" data-toggle="modal" data-target="#myModal">Insert new Book</button> 
+        <br><br>
+        <table class="table table-striped" id="demo"></table>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Manage Book</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" class="form-control" id="ti" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <input type="text" class="form-control" id="de" />
+                    </div>
+                    <div class="form-group">
+                        <label>Price:</label>
+                        <input type="number" class="form-control" id="pr" />
+                    </div>
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <select class="form-control" id="ca">
+                            <option value="0">Please select</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                        </select>
+                    </div>
+                    <br>
+                    <img src="" alt="" id="mm" width="150px"><br>
+                    <div id="picd" class="form-group">
+                        <label>Select picture:</label>
+                        <input type="file" id="ff" class="form-control" accept="image/png, image/jpeg">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="insert" class="btn btn-info" data-dismiss="modal" onclick="insert()">Insert</button>
+                    <button id="edit" class="btn btn-info" data-dismiss="modal" onclick="update()">Update</button>
+                    <button id="del" class="btn btn-danger" data-dismiss="modal" onclick="delet()">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("edit").style.display = "none";
+        document.getElementById("picd").style.display = "none";
+        document.getElementById("insert").style.display = "none";
+        document.getElementById("del").style.display = "none";
+
+        getList();
+
+        async function getList() {
+            var response = await fetch("http://127.0.0.1:8085/process_index");
+            var x = await response.json();
+            var ta = "<tr><th>ID</th><th>Image</th><th>Title</th><th>Price</th><th>Actions</th></tr>";
+            for (let i = 0; i < x.length; i++) {
+                ta += "<tr><td>" + x[i].id + "</td><td><img src='http://127.0.0.1:8085/" + x[i].image + "' width='60px' height='60px' style='object-fit:cover;'></td><td>" + x[i].title + "</td><td>" + x[i].price + "</td>" +
+                    "<td><button type='button' onclick='getbook(" + x[i].id + ")' class='btn btn-info' data-toggle='modal' data-target='#myModal'>Detail</button> " +
+                    "<button type='button' onclick='editbook(" + x[i].id + ")' class='btn btn-warning' data-toggle='modal' data-target='#myModal'>Edit</button> " +
+                    "<button type='button' onclick='deletebook(" + x[i].id + ")' class='btn btn-danger' data-toggle='modal' data-target='#myModal'>Delete</button></td></tr>";
+            }
+            document.getElementById("demo").innerHTML = ta;
+        }
+
+        async function getbook(id) {
+            var response = await fetch('http://127.0.0.1:8085/process_detail/' + id);
+            var x = await response.json();
+            document.getElementById("ti").value = x.title;
+            document.getElementById("de").value = x.description;
+            document.getElementById("pr").value = x.price;
+            document.getElementById("ca").value = x.cata;
+            document.getElementById("mm").src = 'http://127.0.0.1:8085/' + x.image;
+        }
+
+        function editbook(id) {
+            document.getElementById("edit").style.display = "block";
+            document.getElementById("picd").style.display = "block";
+            document.getElementById("insert").style.display = "none";
+            document.getElementById("del").style.display = "none";
+            getbook(id);
+            document.getElementById("edit").setAttribute("data-id", id);
+        }
+
+        function deletebook(id) {
+            document.getElementById("del").style.display = "block";
+            document.getElementById("insert").style.display = "none";
+            document.getElementById("edit").style.display = "none";
+            document.getElementById("picd").style.display = "none";
+            getbook(id);
+            document.getElementById("del").setAttribute("data-id", id);
+        }
+
+        function insertbook() {
+            document.getElementById("insert").style.display = "block";
+            document.getElementById("picd").style.display = "block";
+            document.getElementById("edit").style.display = "none";
+            document.getElementById("del").style.display = "none";
+            document.getElementById("ti").value = "";
+            document.getElementById("de").value = "";
+            document.getElementById("pr").value = "";
+            document.getElementById("ca").value = "0";
+            document.getElementById("mm").src = "";
+        }
+
+        async function insert() {
+            var ti = document.getElementById('ti').value;
+            var de = document.getElementById("de").value;
+            var pr = document.getElementById("pr").value;
+            var ca = document.getElementById("ca").value;
+            var input = document.getElementById('ff');
+            var data = new FormData();
+            data.append('file_pic', input.files[0]);
+            data.append('title', ti);
+            data.append('description', de);
+            data.append('price', pr);
+            data.append('cata', ca);
+            let options = { method: 'POST', body: data };
+            await fetch("http://127.0.0.1:8085/process_insert2", options);
+            getList();
+        }
+
+        async function update() {
+            var id = document.getElementById("edit").getAttribute("data-id");
+            var ti = document.getElementById('ti').value;
+            var de = document.getElementById("de").value;
+            var pr = document.getElementById("pr").value;
+            var ca = document.getElementById("ca").value;
+            var input = document.getElementById('ff');
+            var data = new FormData();
+            data.append('file_pic', input.files[0]);
+            data.append('title', ti);
+            data.append('description', de);
+            data.append('price', pr);
+            data.append('cata', ca);
+            let options = { method: 'PUT', body: data };
+            await fetch("http://127.0.0.1:8085/process_update/" + id, options);
+            getList();
+        }
+
+        async function delet() {
+            var id = document.getElementById("del").getAttribute("data-id");
+            if (confirm("Are you sure you want to delete this book?")) {
+                await fetch("http://127.0.0.1:8085/process_delete/" + id, { method: 'DELETE' });
+                getList();
+            }
+        }
+    </script>
+</body>
+</html>
