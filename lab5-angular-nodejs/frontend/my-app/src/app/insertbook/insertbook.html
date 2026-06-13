@@ -1,0 +1,39 @@
+<div class="form-page">
+  <div class="form-card card">
+    <div class="card-body p-4">
+      <h5 class="form-title">Add New Book</h5>
+      <hr class="form-divider">
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" [(ngModel)]="title" name="title" placeholder="Book title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-control" [(ngModel)]="description" name="description" placeholder="Short description">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" [(ngModel)]="price" name="price" placeholder="0.00">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" [(ngModel)]="cata" name="cata">
+            <option value="non-selected">Please select</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Technology">Information Technology</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Cover Image</label>
+          <input type="file" name="file_pic" (change)="fileChange($event)" class="form-control" accept="image/png, image/jpeg">
+        </div>
+        <div class="text-danger small mb-3">{{ message }}</div>
+        <button (click)="sendclick()" class="btn btn-primary w-100">Add Book</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm navbar-dark app-navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Book Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <!-- Public navigation (store + admin login) -->
+        <ng-container *ngIf="!isAdminArea">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">Browse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link admin-pill" routerLink="/admin/login"
+               routerLinkActive="active">Admin</a>
+          </li>
+        </ng-container>
+
+        <!-- Admin navigation (dashboard, add, sign out) -->
+        <ng-container *ngIf="isAdminArea">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/insertbook" routerLinkActive="active">Add Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link logout-link" (click)="logout()">Sign Out</a>
+          </li>
+        </ng-container>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer">
+  <p class="mb-0">&copy; Yazeed Alnhhas 2025. All rights reserved.</p>
+</footer>

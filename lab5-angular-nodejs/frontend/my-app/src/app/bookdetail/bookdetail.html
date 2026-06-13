@@ -1,0 +1,19 @@
+<div class="mb-3">
+  <a routerLink="/" class="back-link">&larr; Back to Store</a>
+</div>
+
+<div class="detail-card card" *ngIf="book">
+  <div class="detail-layout">
+    <div class="detail-cover">
+      <img [src]="'http://127.0.0.1:8085/' + book.image" class="cover-img" alt="{{ book.title }}">
+    </div>
+    <div class="detail-info">
+      <span class="category-badge">{{ book.cata }}</span>
+      <h2 class="detail-title">{{ book.title }}</h2>
+      <p class="detail-desc">{{ book.description }}</p>
+      <div class="detail-price">{{ book.price | currency:'USD' }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="text-danger mt-3">{{ message }}</div>

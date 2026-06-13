@@ -1,0 +1,38 @@
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  padding-top: 64px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.35rem;
+}
+
+.form-control,
+.form-select {
+  font-size: 0.9rem;
+  border-color: #d1d5db;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
+}
+
+.input-group-text {
+  background-color: #f8fafc;
+  border-color: #d1d5db;
+  color: #64748b;
+  font-size: 0.9rem;
+}

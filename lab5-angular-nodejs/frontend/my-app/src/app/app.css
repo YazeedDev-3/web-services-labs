@@ -1,0 +1,51 @@
+.app-navbar {
+  background-color: #1e293b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.6rem 0;
+}
+
+.app-navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.app-navbar .nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.35rem 0.8rem !important;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+}
+
+/* Subtle pill style for the Admin Login link in the public nav */
+.app-navbar .admin-pill {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.app-navbar .admin-pill:hover,
+.app-navbar .admin-pill.active {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Sign Out link — styled like a nav-link but needs a pointer cursor */
+.logout-link {
+  cursor: pointer;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 1.25rem;
+  margin-top: 3rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  color: #94a3b8;
+  font-size: 0.83rem;
+}

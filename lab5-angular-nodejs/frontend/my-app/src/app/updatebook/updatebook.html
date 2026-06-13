@@ -1,0 +1,52 @@
+<div class="form-page">
+  <div class="form-card card">
+    <div class="card-body p-4">
+      <h5 class="form-title">Edit Book</h5>
+      <hr class="form-divider">
+      <form>
+        <div class="mb-3">
+          <label class="form-label field-label-muted">Book ID</label>
+          <input type="text" class="form-control id-field" [(ngModel)]="id" name="id">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" [(ngModel)]="title" name="title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-control" [(ngModel)]="description" name="description">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" [(ngModel)]="price" name="price">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" [(ngModel)]="cata" name="cata">
+            <option value="0">Please select</option>
+            <option value="1">Computer Science</option>
+            <option value="2">Information Technology</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Current Cover</label>
+          <div class="image-preview">
+            <img [src]="'http://127.0.0.1:8085/' + myImage" class="preview-img">
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Replace Cover Image</label>
+          <input type="file" name="file_pic" (change)="fileChange($event)" class="form-control" accept="image/png, image/jpeg">
+        </div>
+        <div class="text-danger small mb-3">{{ message }}</div>
+        <div class="d-flex gap-2">
+          <button (click)="sendclick()" class="btn btn-primary flex-fill">Save Changes</button>
+          <button (click)="deleteclick()" class="btn btn-outline-danger flex-fill">Delete Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

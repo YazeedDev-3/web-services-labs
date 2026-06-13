@@ -1,0 +1,21 @@
+<div class="store-hero mb-5">
+  <h1 class="hero-title">Welcome to Book Store</h1>
+  <p class="hero-subtitle">Discover your next great read</p>
+</div>
+
+<div class="books-grid">
+  <div class="book-card card" *ngFor="let book of books">
+    <img [src]="'http://127.0.0.1:8085/' + book.image" class="book-img" alt="{{ book.title }}">
+    <div class="card-body">
+      <span class="category-badge">{{ book.cata }}</span>
+      <h6 class="book-title">{{ book.title }}</h6>
+      <p class="book-desc">{{ book.description }}</p>
+      <div class="book-footer">
+        <span class="book-price">{{ book.price | currency:'USD' }}</span>
+        <a [routerLink]="['/book', book.id]" class="btn btn-primary btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center text-danger mt-4">{{ message }}</div>

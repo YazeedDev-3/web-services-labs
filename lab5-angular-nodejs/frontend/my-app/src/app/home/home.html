@@ -1,0 +1,33 @@
+<div class="page-header mb-4">
+  <h4 class="page-title">Admin Dashboard</h4>
+  <a routerLink="/insertbook" class="btn btn-primary btn-sm">+ Add Book</a>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Cover</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td class="align-middle fw-medium">{{ book.title }}</td>
+          <td class="align-middle">{{ book.price | currency:'USD' }}</td>
+          <td class="book-cover-cell">
+            <img [src]="'http://127.0.0.1:8085/' + book.image" class="book-cover">
+          </td>
+          <td class="align-middle text-end">
+            <a [routerLink]="['/updatebook', book.id]" class="btn btn-outline-primary btn-sm">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-center text-danger mt-3">{{ message }}</div>
