@@ -1,0 +1,32 @@
+version: '3.8'
+
+networks:
+  backend:
+
+services:
+  customerdb:
+    container_name: customer-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
+    networks:
+      - backend
+    ports:
+      - 8005:1433
+
+  lab-9-webservice-docker:
+    container_name: customer-api
+    image: ${DOCKER_REGISTRY-}lab9webservicedocker
+    build:
+      context: .
+      dockerfile: lab-9-webService-Docker/Dockerfile
+    networks:
+      - backend
+    ports:
+      - 8006:8080
+    environment:
+      - DB_HOST=customerdb
+      - DB_NAME=dms_customer
+      - DB_SA_PASSWORD=password@12345#
+      - DB_USER=SA
